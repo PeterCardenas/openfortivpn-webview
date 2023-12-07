@@ -31,6 +31,15 @@ const parser = yargs(hideBin(process.argv))
       describe: 'Path to a file with extra certificates. The file should consist of one or more trusted certificates in PEM format.',
       type: "string",
   })
+  .option('retry-when-failed', {
+      describe: 'Whether the browser should retry when the page fails to load.',
+      type: "boolean",
+  })
+  .option('retry-timeout', {
+      describe: 'How long to wait before retrying when the page fails to load (Default: 2000ms).',
+      type: "number",
+      default: 2000,
+  })
   .help();
 
 const argv = parser.parse();
@@ -112,6 +121,16 @@ app.whenReady().then(() => {
       tryPrintCookie();
     }
   });
+
+  window.webContents.on('did-fail-load', (_event, _errorCode, _errorDescription, validatedURL) => {
+    if (!argv.retryWhenFailed) {
+      return;
+    }
+    process.stderr.write(`Failed to load ${validatedURL}. Retrying in ${argv.retryTimeout}ms.\n`);
+    setTimeout(() => {
+      window.loadURL(urlBuilder());
+    }, argv.retryTimeout);
+  })
 
   session.defaultSession.cookies.on('changed', (e, cookie) => {
     if (cookie.name == cookieName) {

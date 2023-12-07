@@ -1,5 +1,7 @@
 {
   "name": "openfortivpn-webview",
+  "description": "SSO Login webview for FortiGate VPNs",
+  "author": "Peter Cardenas",
   "version": "1.1.2",
   "scripts": {
     "start": "electron index.js",
@@ -17,9 +19,9 @@
   "build": {
     "appId": "openfortivpn-webview",
     "linux": {
+      "icon": "icon.png",
+      "category": "Utility",
       "target": [
-        "AppImage",
-        "tar.xz"
       ]
     }
   }

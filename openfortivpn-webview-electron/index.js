@@ -44,6 +44,8 @@ const parser = yargs(hideBin(process.argv))
 
 const argv = parser.parse();
 
+app.commandLine.appendSwitch('in-process-gpu');
+
 if (argv._.length == 0 && !argv.url) {
   parser.showHelp()
   process.exit(1);

@@ -7,6 +7,9 @@
     "start": "electron index.js",
     "dist": "electron-builder"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "main": "index.js",
   "private": true,
   "devDependencies": {

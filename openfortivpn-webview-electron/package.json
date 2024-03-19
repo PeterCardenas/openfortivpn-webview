@@ -26,6 +26,12 @@
       "category": "Utility",
       "target": [
       ]
+    },
+    "mac": {
+      "identity": null,
+      "target": [
+        "dir"
+      ]
     }
   }
 }
